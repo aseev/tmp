@@ -1,0 +1,15 @@
+SELECT 
+    acc.owner,
+    acc.table_name,
+    acc.constraint_name,
+    acc.column_name,
+    ac.r_owner,
+    ac.r_constraint_name,
+    ac.r_table_name,
+    acc.position
+FROM all_cons_columns acc
+JOIN all_constraints ac ON acc.owner = ac.owner 
+    AND acc.constraint_name = ac.constraint_name
+WHERE ac.constraint_type = 'R'
+  AND ac.r_table_name = 'ORDERS'
+ORDER BY acc.owner, acc.table_name, acc.constraint_name, acc.position;
